@@ -9,24 +9,23 @@ class Player
     @score = 0
   end
 
-  def score
+  def count_score
     cards.each do |card|
       if card.include? 'A'
-        if @score > 10
-          @score += 1
+        if score > 10
+          self.score += 1
         else
-          @score += 11
+          self.score += 11
         end
       elsif card.to_i.zero?
-        @score += 10
+        self.score += 10
       else
-        @score += card.to_i
+        self.score += card.to_i
       end
     end
-    @score
   end
 
   def bet
-    @stack -= 10
+    self.stack -= 10
   end
 end
