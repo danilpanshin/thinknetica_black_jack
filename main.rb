@@ -9,8 +9,8 @@ class Main
     name
     start_game
     give_out_hands
-    p user_cards
-    p user_score
+    show_cards
+    puts user_score
   end
 
   private
@@ -34,12 +34,13 @@ class Main
     @deck.give_out_card(@user)
   end
 
-  def user_cards
-    @user.cards
+  def show_cards
+    puts "Dealer's cards: * *"
+    puts "Your card: #{@user.cards}"
   end
 
    def user_score
-     @user.score
+     "Your score: #{@user.score}"
   end
 end
 
