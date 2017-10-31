@@ -1,7 +1,7 @@
 # require_relative 'deck'
 
 class Player
-  attr_accessor :cards, :score
+  attr_accessor :cards, :score, :stack
 
   def initialize
     @stack = 100
@@ -26,7 +26,7 @@ class Player
     @score
   end
 
-  def new_round
+  def bet
     @stack -= 10
   end
 end

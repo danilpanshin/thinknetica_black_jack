@@ -11,6 +11,7 @@ class Main
     give_out_hands
     show_cards
     puts user_score
+    bet
   end
 
   private
@@ -41,6 +42,11 @@ class Main
 
    def user_score
      "Your score: #{@user.score}"
+  end
+
+  def bet
+    @user.bet
+    @dealer.bet
   end
 end
 
