@@ -1,3 +1,4 @@
+require_relative 'player'
 require_relative 'user'
 require_relative 'dealer'
 require_relative 'deck'
@@ -8,8 +9,8 @@ class Main
     name
     start_game
     give_out_hands
-    user_cards
-
+    p user_cards
+    # p user_score
   end
 
   private
@@ -34,8 +35,11 @@ class Main
   end
 
   def user_cards
-    p @user.cards
-    p @deck.deck.length
+    @user.cards
+  end
+
+   def user_score
+
   end
 end
 
