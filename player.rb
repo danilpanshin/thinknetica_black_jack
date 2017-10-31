@@ -10,7 +10,20 @@ class Player
   end
 
   def score
-    @score = 0
+    cards.each do |card|
+      if card.include? 'A'
+        if @score > 10
+          @score += 1
+        else
+          @score += 11
+        end
+      elsif card.to_i.zero?
+        @score += 10
+      else
+        @score += card.to_i
+      end
+    end
+    @score
   end
 
   def new_round

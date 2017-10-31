@@ -10,7 +10,7 @@ class Main
     start_game
     give_out_hands
     p user_cards
-    # p user_score
+    p user_score
   end
 
   private
@@ -39,7 +39,7 @@ class Main
   end
 
    def user_score
-
+     @user.score
   end
 end
 
