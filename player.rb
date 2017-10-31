@@ -1,5 +1,3 @@
-# require_relative 'deck'
-
 class Player
   attr_accessor :cards, :score, :stack
 
@@ -10,6 +8,8 @@ class Player
   end
 
   def count_score
+    self.score = 0
+
     cards.each do |card|
       if card.include? 'A'
         if score > 10

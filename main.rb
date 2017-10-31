@@ -4,15 +4,22 @@ require_relative 'dealer'
 require_relative 'deck'
 
 class Main
-
   def game
     name
     start_game
-    give_out_hands
-    puts user_cards
-    puts user_score
-    bet
-    user_move
+    loop do
+      give_out_hands
+      puts user_cards
+      puts user_score
+      bet
+      user_move
+      puts winner
+      bank
+
+      puts "continue game: y/n?"
+      action = gets.chomp
+      break if action == 'n'
+    end
   end
 
   private
@@ -30,20 +37,34 @@ class Main
   end
 
   def give_out_hands
+    cards_to_trash
     @deck.give_out_card(@dealer)
     @deck.give_out_card(@dealer)
     @deck.give_out_card(@user)
     @deck.give_out_card(@user)
+  end
+
+  def cards_to_trash
+    @user.cards = []
+    @dealer.cards = []
   end
 
   def user_cards
     "Your cards: #{@user.cards}, dealer's cards: * *"
   end
 
-   def user_score
-    @user.score = 0
+  def user_score
     @user.count_score
-     "Your score: #{@user.score}"
+   "Your score: #{@user.score}"
+  end
+
+  def dealer_cards
+    "Dealer's cards: #{@dealer.cards}"
+  end
+
+  def dealer_score
+    @dealer.count_score
+    "Dealer's score: #{@dealer.score}"
   end
 
   def bet
@@ -56,6 +77,7 @@ class Main
     when 1
       dealer_move
     when 2
+      raise if @user.cards.size > 2
       user_take_card
       dealer_move
     when 3
@@ -72,35 +94,56 @@ class Main
   end
 
   def dealer_move
-    @dealer.count_score
     if @dealer.score < 15
+      puts "Dealer took card"
       @deck.give_out_card(@dealer)
-      user_move
+      if @user.cards.size > 2
+        open_cards
+      else
+        user_move
+      end
     else
-      puts "Dealer missed move"
+      puts "Dealer missed move, your move"
       user_move
     end
   end
 
   def user_take_card
     @deck.give_out_card(@user)
-      puts user_cards
-      puts user_score
-  end
-
-  def dealer_cards
-    "Dealer's cards: #{@dealer.cards}"
-  end
-
-  def dealer_score
-    @dealer_score = 0
-    @dealer.count_score
-    "Dealer's score: #{@dealer.score}"
+    puts user_cards
+    puts user_score
   end
 
   def open_cards
     puts dealer_cards
     puts dealer_score
+    puts user_score
+  end
+
+  def winner
+    if @user.score > @dealer.score && @user.score < 22
+      "You win!"
+    elsif @user.score > @dealer.score && @user.score > 21
+      "You loose."
+    elsif @user.score < @dealer.score && @dealer.score < 22
+      "You loose."
+    elsif @user.score < @dealer.score && @dealer.score > 21
+      "You win!"
+    else
+      "draw!"
+    end
+  end
+
+  def bank
+    if winner == "You win!"
+      @user.stack += 20
+    elsif winner == "You loose."
+      @dealer.stack += 20
+    else
+      @user.stack += 10
+      @dealer.stack += 10
+    end
+    puts "Your stack = #{@user.stack}"
   end
 end
 
