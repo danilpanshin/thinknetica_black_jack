@@ -19,10 +19,12 @@ class Deck
     )
   end
 
+  def shuffle
+    self.deck.shuffle!
+  end
+
   def give_out_card(gamer)
     card = deck.delete(deck.sample)
     gamer.cards << card
   end
 end
-
-# p Deck.new.deck.last.to_i

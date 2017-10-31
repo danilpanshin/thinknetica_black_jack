@@ -15,7 +15,7 @@ class Main
       user_move
       puts winner
       bank
-
+      cards_to_trash
       puts "continue game: y/n?"
       action = gets.chomp
       break if action == 'n'
@@ -37,7 +37,7 @@ class Main
   end
 
   def give_out_hands
-    cards_to_trash
+    @deck.shuffle
     @deck.give_out_card(@dealer)
     @deck.give_out_card(@dealer)
     @deck.give_out_card(@user)
@@ -94,6 +94,7 @@ class Main
   end
 
   def dealer_move
+    @dealer.count_score
     if @dealer.score < 15
       puts "Dealer took card"
       @deck.give_out_card(@dealer)
