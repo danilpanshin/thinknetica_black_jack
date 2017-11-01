@@ -24,10 +24,7 @@ class Main
 
   private
 
-  def name
-    print "Enter your name: "
-    @name = gets.chomp
-  end
+
 
   def start_game
     puts "Hi, #{@name}! Let's start a game!"
@@ -36,18 +33,9 @@ class Main
     @deck = Deck.new
   end
 
-  def give_out_hands
-    @deck.shuffle
-    @deck.give_out_card(@dealer)
-    @deck.give_out_card(@dealer)
-    @deck.give_out_card(@user)
-    @deck.give_out_card(@user)
-  end
 
-  def cards_to_trash
-    @user.cards = []
-    @dealer.cards = []
-  end
+
+
 
   def user_cards
     "Your cards: #{@user.cards}, dealer's cards: * *"
