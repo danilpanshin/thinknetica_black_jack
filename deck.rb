@@ -9,6 +9,6 @@ class Deck
   end
 end
 
- # p d = Deck.new
+ # d = Deck.new
  # p d.card
  # p d.instance_eval('@deck')
