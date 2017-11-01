@@ -124,12 +124,14 @@ class Main
   def winner
     if @user.score > @dealer.score && @user.score < 22
       "You win!"
+    elsif @user.score < @dealer.score && @dealer.score > 21
+      "You win!"
     elsif @user.score > @dealer.score && @user.score > 21
       "You loose."
     elsif @user.score < @dealer.score && @dealer.score < 22
       "You loose."
-    elsif @user.score < @dealer.score && @dealer.score > 21
-      "You win!"
+    elsif @user.score > 21 && @dealer.score > 21
+      "draw!"
     else
       "draw!"
     end

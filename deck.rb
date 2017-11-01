@@ -1,30 +1,14 @@
 class Deck
-  attr_accessor :deck
-
   def initialize
-    @deck = %w(
-    2+ 2<3 2<> 2^
-    3+ 3<3 3<> 3^
-    4+ 4<3 4<> 4^
-    5+ 5<3 5<> 5^
-    6+ 6<3 6<> 6^
-    7+ 7<3 7<> 7^
-    8+ 8<3 8<> 8^
-    9+ 9<3 9<> 9^
-    T+ T<3 T<> T^
-    J+ J<3 J<> J^
-    Q+ Q<3 Q<> Q^
-    K+ K<3 K<> K^
-    A+ A<3 A<> A^
-    )
+    @deck = %w(2 3 4 5 6 7 8 9 10 J Q K A).product(%w(+ <3 <> ^))
+    @deck.shuffle!
   end
 
-  def shuffle
-    self.deck.shuffle!
-  end
-
-  def give_out_card(gamer)
-    card = deck.delete(deck.sample)
-    gamer.cards << card
+  def card
+    @deck.pop.join
   end
 end
+
+ # p d = Deck.new
+ # p d.card
+ # p d.instance_eval('@deck')
