@@ -1,23 +1,20 @@
 require_relative 'hand'
 
 class Player
-  attr_reader  :hand, :stack
+  attr_accessor :stack
+  attr_reader :hand
 
   def initialize
     @stack = 100
     @hand = Hand.new
   end
 
-  # def take_card(deck)
-  #   hand.add_card(deck)
-  # end
-
   def bet
     @stack -= 10
   end
 
-  # def cards
-  #   hand.cards
+  # def take_card(deck)
+  #   hand.add_card(deck)
   # end
 end
 

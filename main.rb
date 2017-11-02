@@ -1,76 +1,77 @@
-require_relative 'player'
-require_relative 'user'
-require_relative 'dealer'
-require_relative 'deck'
+require_relative 'game'
 
 class Main
-  def game
-    name
-    start_game
+  attr_reader :game
+
+  def initialize
+    # name
+    @game = Game.new
+  end
+
+  def interface
     loop do
-      give_out_hands
-      puts user_cards
-      puts user_score
-      bet
+      game.new_game
+      puts show_player_hand
+      puts show_player_score
       user_move
-      puts winner
-      bank
-      cards_to_trash
-      puts "continue game: y/n?"
-      action = gets.chomp
-      break if action == 'n'
+      puts game.winner
+      puts game.bank
+      break if new_game_or_exit?
     end
   end
 
   private
 
-
-
-  def start_game
-    puts "Hi, #{@name}! Let's start a game!"
-    @user = User.new
-    @dealer = Dealer.new
-    @deck = Deck.new
+  def name
+    print "Enter your name: "
+    name = gets.chomp.capitalize
+    "Hello, #{name}!"
   end
 
-
-
-
-
-  def user_cards
-    "Your cards: #{@user.cards}, dealer's cards: * *"
+  def show_player_hand
+    "Your hand: #{game.player.hand.cards}, dealer's hand: * *"
   end
 
-  def user_score
-    @user.count_score
-   "Your score: #{@user.score}"
+  def show_player_score
+   "Your score: #{game.player.hand.count_score}"
   end
 
-  def dealer_cards
-    "Dealer's cards: #{@dealer.cards}"
+  def show_dealer_hand
+    "Dealer's hand: #{game.dealer.hand.cards}"
   end
 
-  def dealer_score
-    @dealer.count_score
-    "Dealer's score: #{@dealer.score}"
-  end
-
-  def bet
-    @user.bet
-    @dealer.bet
+  def show_dealer_score
+    "Dealer's score: #{game.dealer.hand.count_score}"
   end
 
   def user_move
-    case user_move_menu
-    when 1
-      dealer_move
-    when 2
-      raise if @user.cards.size > 2
-      user_take_card
-      dealer_move
-    when 3
-      open_cards
+    loop do
+      case user_move_menu
+      when 1
+        dealer_move_result
+      when 2
+        if game.player.hand.cards.size > 2
+          puts "You have 3 cards already"
+        else
+          game.player.hand.add_card
+          puts show_player_hand
+          puts show_player_score
+          game.dealer.move
+          dealer_move_result
+        end
+      when 3
+        open_cards
+        break
+      end
     end
+  end
+
+  def dealer_move_result
+    if game.dealer.move
+        puts "Dealer took card, your move:"
+      else
+        puts "Dealer missed move, your move:"
+      end
   end
 
   def user_move_menu
@@ -81,62 +82,18 @@ class Main
     gets.chomp.to_i
   end
 
-  def dealer_move
-    @dealer.count_score
-    if @dealer.score < 15
-      puts "Dealer took card"
-      @deck.give_out_card(@dealer)
-      if @user.cards.size > 2
-        open_cards
-      else
-        user_move
-      end
-    else
-      puts "Dealer missed move, your move"
-      user_move
-    end
-  end
-
-  def user_take_card
-    @deck.give_out_card(@user)
-    puts user_cards
-    puts user_score
-  end
-
   def open_cards
-    puts dealer_cards
-    puts dealer_score
-    puts user_score
+    puts show_dealer_hand
+    puts show_dealer_score
+    puts show_player_score
   end
 
-  def winner
-    if @user.score > @dealer.score && @user.score < 22
-      "You win!"
-    elsif @user.score < @dealer.score && @dealer.score > 21
-      "You win!"
-    elsif @user.score > @dealer.score && @user.score > 21
-      "You loose."
-    elsif @user.score < @dealer.score && @dealer.score < 22
-      "You loose."
-    elsif @user.score > 21 && @dealer.score > 21
-      "draw!"
-    else
-      "draw!"
-    end
-  end
-
-  def bank
-    if winner == "You win!"
-      @user.stack += 20
-    elsif winner == "You loose."
-      @dealer.stack += 20
-    else
-      @user.stack += 10
-      @dealer.stack += 10
-    end
-    puts "Your stack = #{@user.stack}"
+  def new_game_or_exit?
+    puts "Continue game: y/n?"
+    return false if gets.chomp == "y"
+    true
   end
 end
 
 game = Main.new
-game.game
+game.interface
