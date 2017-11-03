@@ -8,7 +8,3 @@ class Deck
     @deck.pop.join
   end
 end
-
- # d = Deck.new
- # p d.card
- # p d.instance_eval('@deck')

@@ -13,14 +13,12 @@ class Main
       game.new_game
       puts show_player_hand
       puts show_player_score
-      user_move
+      player_move
       puts game.winner
       puts game.bank
       break if new_game_or_exit?
     end
   end
-
-  private
 
   def name
     print "Enter your name: "
@@ -44,20 +42,21 @@ class Main
     "Dealer's score: #{game.dealer.hand.count_score}"
   end
 
-  def user_move
+  def player_move
     loop do
       case user_move_menu
       when 1
-        dealer_move_result
+        puts dealer_move_result
       when 2
-        if game.player.hand.cards.size > 2
+        if game.player_take_card
           puts "You have 3 cards already"
+          open_cards
+          break
         else
-          game.player.hand.add_card
           puts show_player_hand
           puts show_player_score
           game.dealer.move
-          dealer_move_result
+          puts dealer_move_result
         end
       when 3
         open_cards
@@ -67,11 +66,8 @@ class Main
   end
 
   def dealer_move_result
-    if game.dealer.move
-        puts "Dealer took card, your move:"
-      else
-        puts "Dealer missed move, your move:"
-      end
+    return "Dealer took card, your move:" if game.dealer.move
+    "Dealer missed move, your move:"
   end
 
   def user_move_menu

@@ -13,6 +13,8 @@ class Player
     @stack -= 10
   end
 
+
+
   # def take_card(deck)
   #   hand.add_card(deck)
   # end
