@@ -9,7 +9,6 @@ class Game
   def initialize
    @player = Player.new
    @dealer = Dealer.new
-   @hand = Hand.new
   end
 
   def new_game
