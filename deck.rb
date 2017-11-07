@@ -1,8 +1,7 @@
 require_relative 'card'
 
 class Deck
-
-  RANGS = %w(2 3 4 5 6 7 8 9 10 J Q K A).product(%w(+ <3 <> ^))
+  RANGS = %w[2 3 4 5 6 7 8 9 10 J Q K A].product(%w[+ <3 <> ^])
 
   def initialize
     @cards = []
@@ -34,5 +33,3 @@ end
 # p (d.instance_eval("@cards")).first
 
 # p d.deck.size
-
-

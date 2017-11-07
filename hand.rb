@@ -19,7 +19,7 @@ class Hand
   end
 
   def muck
-    self.cards.clear
+    cards.clear
   end
 end
 

@@ -4,8 +4,9 @@ class Main
   attr_reader :game, :name
 
   def initialize
-    @name = "Pavel"
+    @name = user_name
     @game = Game.new
+    greeting
   end
 
   def interface
@@ -21,11 +22,15 @@ class Main
 
   private
 
-  # def name
-  #   print "Enter your name: "
-  #   name = gets.chomp.capitalize
-  #   "Hello, #{name}!"
-  # end
+  def user_name
+    print 'Enter your name: '
+    gets.chomp.capitalize
+  end
+
+  def greeting
+    puts "Hello, #{name}!"
+    puts ''
+  end
 
   def show_hand_and_score(player)
     if player == game.player
@@ -34,7 +39,7 @@ class Main
       print "dealer's cards: "
     end
     game.show_cards(player)
-    print "score: "
+    print 'score: '
     puts game.show_score(player)
   end
 
@@ -45,7 +50,7 @@ class Main
         puts dealer_move_result
       when 2
         if game.player_take_card
-          puts "You have 3 cards already"
+          puts 'You have 3 cards already'
           open_cards
           break
         else
@@ -61,16 +66,16 @@ class Main
   end
 
   def dealer_move_result
-    return "Dealer took card, your move:" if game.dealer.move
-    "Dealer missed move, your move:"
+    return 'Dealer took card, your move:' if game.dealer.move
+    'Dealer missed move, your move:'
   end
 
   def user_move_menu
     puts ''
-    puts "Choose action:"
-    puts "miss - 1"
-    puts "take card - 2"
-    puts "open cards - 3"
+    puts 'Choose action:'
+    puts 'miss - 1'
+    puts 'take card - 2'
+    puts 'open cards - 3'
     gets.chomp.to_i
   end
 
@@ -88,7 +93,7 @@ class Main
     elsif winner == game.dealer
       puts "#{name}, you loose."
     else
-      "Draw."
+      'Draw.'
     end
   end
 
@@ -98,10 +103,11 @@ class Main
 
   def new_game_or_exit?
     puts ''
-    puts "Continue game: y/n?"
-    return false if gets.chomp == "y"
+    puts 'Continue game: y/n?'
+    return false if gets.chomp == 'y'
     true
   end
 end
 
-Main.new.interface
+m = Main.new
+m.interface

@@ -22,4 +22,3 @@ class Player
     self.stack += 10
   end
 end
-
