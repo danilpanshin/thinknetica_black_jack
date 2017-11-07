@@ -13,10 +13,6 @@ class Deck
     @cards.pop
   end
 
-  # def shuffle
-  #   @cards.shuffle
-  # end
-
   private
 
   def add_cards
@@ -27,9 +23,3 @@ class Deck
     end
   end
 end
-
-# d = Deck.new
-
-# p (d.instance_eval("@cards")).first
-
-# p d.deck.size

@@ -21,7 +21,7 @@ class Game
   end
 
   def show_cards(player)
-    player.hand.cards.each { |card| print "#{card.rang}#{card.suit}, " }
+    player.hand.cards
   end
 
   def show_score(player)
@@ -53,9 +53,10 @@ class Game
   end
 
   def stack
-    if who_win == player
+    winner = who_win
+    if winner == player
       player.win
-    elsif who_win == dealer
+    elsif winner == dealer
       dealer.win
     else
       player.draw

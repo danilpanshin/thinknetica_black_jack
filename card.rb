@@ -6,18 +6,11 @@ class Card
     @suit = suit
   end
 
+  def score_ace
+    score > 10 ? 1 : 11
+  end
+
   def score
-    score = 0
-    score + if rang == 'A'
-              if score > 10
-                1
-              else
-                11
-              end
-            elsif rang.to_i.zero?
-              10
-            else
-              rang.to_i
-            end
+    rang.to_i.zero? ? 10 : rang.to_i
   end
 end

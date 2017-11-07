@@ -33,14 +33,9 @@ class Main
   end
 
   def show_hand_and_score(player)
-    if player == game.player
-      print "#{name}'s cards: "
-    else
-      print "dealer's cards: "
-    end
-    game.show_cards(player)
-    print 'score: '
-    puts game.show_score(player)
+    print player == game.player ? "#{name}'s cards: " : "dealer's cards: "
+    game.show_cards(player).each { |card| print "#{card.rang}#{card.suit}, " }
+    puts "score: #{game.show_score(player)}"
   end
 
   def player_move
